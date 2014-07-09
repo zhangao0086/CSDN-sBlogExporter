@@ -46,6 +46,7 @@
 		1893BDED196CF89F00B0D1CA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893BDEB196CF6A600B0D1CA /* MainViewController.m */; };
 		1893BDF1196D009600B0D1CA /* CSDNLoginTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893BDF0196D009600B0D1CA /* CSDNLoginTracker.m */; };
 		1893BDF4196D06A600B0D1CA /* CSDNLoginSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893BDF3196D06A600B0D1CA /* CSDNLoginSerializer.m */; };
+		1893BDF7196D4F3800B0D1CA /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893BDF6196D4F3800B0D1CA /* SpinnerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,8 @@
 		1893BDF0196D009600B0D1CA /* CSDNLoginTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDNLoginTracker.m; sourceTree = "<group>"; };
 		1893BDF2196D06A600B0D1CA /* CSDNLoginSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDNLoginSerializer.h; sourceTree = "<group>"; };
 		1893BDF3196D06A600B0D1CA /* CSDNLoginSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDNLoginSerializer.m; sourceTree = "<group>"; };
+		1893BDF5196D4F3800B0D1CA /* SpinnerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpinnerView.h; sourceTree = "<group>"; };
+		1893BDF6196D4F3800B0D1CA /* SpinnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpinnerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +209,8 @@
 				181995AA196B9BB6006D031A /* AppDelegate.m */,
 				1893BDEA196CF6A600B0D1CA /* MainViewController.h */,
 				1893BDEB196CF6A600B0D1CA /* MainViewController.m */,
+				1893BDF5196D4F3800B0D1CA /* SpinnerView.h */,
+				1893BDF6196D4F3800B0D1CA /* SpinnerView.m */,
 				181995AC196B9BB6006D031A /* MainMenu.xib */,
 				1893BDE2196CE84400B0D1CA /* LoginSheets.xib */,
 				181995AF196B9BB6006D031A /* Images.xcassets */,
@@ -469,6 +474,7 @@
 				181995E3196BAF7F006D031A /* AFHTTPRequestOperationManager.m in Sources */,
 				181995E5196BAF7F006D031A /* AFNetworkReachabilityManager.m in Sources */,
 				181995E9196BAF7F006D031A /* AFURLResponseSerialization.m in Sources */,
+				1893BDF7196D4F3800B0D1CA /* SpinnerView.m in Sources */,
 				181995E7196BAF7F006D031A /* AFURLConnectionOperation.m in Sources */,
 				1819966A196BE911006D031A /* CSDNAllArticleSummarySerializer.m in Sources */,
 				181995E6196BAF7F006D031A /* AFSecurityPolicy.m in Sources */,

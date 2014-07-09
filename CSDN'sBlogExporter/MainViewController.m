@@ -11,6 +11,7 @@
 #import "CSDNAllArticleSummaryTracker.h"
 #import "CSDNArticleTracker.h"
 #import "CSDNLoginTracker.h"
+#import "SpinnerView.h"
 
 @interface MainViewController ()
 
@@ -25,6 +26,7 @@
 
 @property (nonatomic, strong) NSArray *articleSummarys;
 @property (nonatomic, strong) NSURL *exportDirectoryURL;
+@property (nonatomic, strong) SpinnerView *spinnerView;
 
 @end
 
@@ -39,6 +41,15 @@
         [NSBundle loadNibNamed:@"LoginSheets" owner:self];
     }
     return _loginSheets;
+}
+
+-(SpinnerView *)spinnerView{
+    if (_spinnerView == nil) {
+        _spinnerView = [[SpinnerView alloc] initWithFrame:CGRectMake(0, 0,
+                                                                     self.loginSheets.frame.size.width,
+                                                                     self.loginSheets.frame.size.height)];
+    }
+    return _spinnerView;
 }
 
 -(IBAction)categoriesButtonClicked:(NSButton *)sender{
@@ -75,6 +86,11 @@
 }
 
 -(IBAction)login:(id)sender{
+    [self.loginSheets.contentView addSubview:self.spinnerView];
+    [self.spinnerView startAnimation];
+    [self.username setHidden:YES];
+    [self.password setHidden:YES];
+    
     CSDNLoginTracker *loginTracker = [[CSDNLoginTracker alloc] init];
     loginTracker.username = self.username.stringValue;
     loginTracker.password = self.password.stringValue;
