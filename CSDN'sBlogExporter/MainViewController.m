@@ -15,14 +15,15 @@
 
 @interface MainViewController ()
 
-@property (nonatomic, weak) IBOutlet NSTextField *username;
 @property (nonatomic, assign) IBOutlet NSTextView *descriptionTextView;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *indicator;
 @property (nonatomic, weak) IBOutlet NSButton *loginButton;
 @property (nonatomic, weak) IBOutlet NSButton *exportButton;
 
 @property (nonatomic, strong) IBOutlet NSWindow *loginSheets;
+@property (nonatomic, weak) IBOutlet NSTextField *username;
 @property (nonatomic, weak) IBOutlet NSTextField *password;
+@property (nonatomic, weak) IBOutlet NSTextField *tipsLabel;
 
 @property (nonatomic, strong) NSArray *articleSummarys;
 @property (nonatomic, strong) NSURL *exportDirectoryURL;
@@ -80,35 +81,56 @@
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo{
     [sheet orderOut:self];
-    if (returnCode == NSOKButton) {
-        
-    }
 }
 
 -(IBAction)login:(id)sender{
+    if ([self.username.stringValue isEqualToString:@""]) {
+        self.tipsLabel.stringValue = @"用户名不能为空";
+        return;
+    }
+    if ([self.password.stringValue isEqualToString:@""]) {
+        self.tipsLabel.stringValue = @"密码不能为空";
+        return;
+    }
     [self.loginSheets.contentView addSubview:self.spinnerView];
     [self.spinnerView startAnimation];
-    [self.username setHidden:YES];
-    [self.password setHidden:YES];
+    [self.loginSheets makeFirstResponder:nil];
     
     CSDNLoginTracker *loginTracker = [[CSDNLoginTracker alloc] init];
     loginTracker.username = self.username.stringValue;
     loginTracker.password = self.password.stringValue;
     [loginTracker requestWithCompleteBlock:^(NSError *error, id obj) {
+        [self.spinnerView stopAnimation];
         if (error == nil) {
-            
+            [self cancelSheet:nil];
+            [self.loginButton setEnabled:NO];
+            [self.exportButton setEnabled:YES];
+            self.password.stringValue = @"";
+            [self.loginButton setTitle:self.username.stringValue];
+            [self resizeLoginButton];
+            [CSDNTracker setUsername:self.username.stringValue];
         } else {
-            MessageInError(error);
+            self.tipsLabel.stringValue = MessageInError(error);
         }
     }];
 }
 
 #pragma mark - methods
+-(void)resizeLoginButton{
+    CGSize size =  [self.loginButton.title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, self.loginButton.frame.size.height)
+                                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                                     attributes:@{
+                                                                  NSFontAttributeName: self.loginButton.font
+                                                                  }].size;
+    self.loginButton.frame = CGRectMake(self.loginButton.frame.origin.x,
+                                        self.loginButton.frame.origin.y,
+                                        size.width, self.loginButton.frame.size.height);
+}
+
 -(void)startExporting{
     [self addMessageLog:@"开始导出...\n正在访问指定的博客..."];
     [self.indicator startAnimation:nil];
     CSDNAllArticleSummaryTracker *tracker = [CSDNAllArticleSummaryTracker new];
-    tracker.username = self.username.stringValue;
     [tracker requestWithCompleteBlock:^(NSError *error, NSArray *articleSummarys) {
         if (error == nil) {
             self.articleSummarys = articleSummarys;
@@ -121,7 +143,6 @@
             [self addMessageLog:@"共%d篇文章",articleSummarys.count];
             [self addMessageLog:@"开始导出每一篇文章..."];
             CSDNArticleTracker *articleTracker = [[CSDNArticleTracker alloc] initWithSummarys:self.articleSummarys];
-            articleTracker.username = self.username.stringValue;
             [articleTracker requestBatchWithCompleteBlock:^(NSError *error, id obj, BOOL batchIsCompleted) {
                 if (error == nil) {
                     if (batchIsCompleted) {

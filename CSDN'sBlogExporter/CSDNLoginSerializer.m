@@ -22,7 +22,7 @@
     NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
     NSString *errorMessage = [self errorMessageByHtmlString:htmlString];
-    if ([errorMessage isEqualToString:@""]) {
+    if (errorMessage == nil) {
         return htmlString;
     } else {
         *error = [NSError errorWithDomain:@"CSDN" code:999 userInfo:@{@"errorMessage": errorMessage}];

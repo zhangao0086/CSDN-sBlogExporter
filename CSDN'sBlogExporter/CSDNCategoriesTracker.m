@@ -20,8 +20,8 @@
 }
 
 -(NSString *)requestURLString{
-    assert(self.username);
-    return [NSString stringWithFormat:@"http://blog.csdn.net/%@",self.username];
+    assert([CSDNTracker username]);
+    return [NSString stringWithFormat:@"http://blog.csdn.net/%@",[CSDNTracker username]];
 }
 
 @end

@@ -11,6 +11,6 @@
 @interface SpinnerView : NSView
 
 -(void)startAnimation;
--(void)endAnimation;
+-(void)stopAnimation;
 
 @end

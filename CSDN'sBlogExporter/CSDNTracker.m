@@ -12,12 +12,24 @@
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @end
 
+////////////////////////////////////////////////////////////////////////////////
+
+static NSString *username = nil;
+
 @implementation CSDNTracker
+
++(void)setUsername:(NSString *)_username{
+    assert(_username);
+    username = _username;
+}
+
++(NSString *)username{
+    assert(username);
+    return username;
+}
 
 -(AFHTTPRequestOperationManager *)manager{
     if (_manager == nil) {
-        assert(self.username);
-        
         _manager = [AFHTTPRequestOperationManager manager];
     }
     return _manager;

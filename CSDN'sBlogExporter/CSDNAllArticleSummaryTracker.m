@@ -16,8 +16,8 @@
 }
 
 -(NSString *)requestURLString{
-    assert(self.username);
-    return [NSString stringWithFormat:@"http://blog.csdn.net/%@/article/list/9999?viewmode=contents",self.username];
+    assert([CSDNTracker username]);
+    return [NSString stringWithFormat:@"http://blog.csdn.net/%@/article/list/9999?viewmode=contents",[CSDNTracker username]];
 }
 
 @end

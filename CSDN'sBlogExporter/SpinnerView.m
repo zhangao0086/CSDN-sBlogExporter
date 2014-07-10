@@ -47,10 +47,12 @@
 }
 
 -(void)startAnimation{
+    self.layer.hidden = NO;
     [self.spinner startAnimation:self.spinner];
 }
 
--(void)endAnimation{
+-(void)stopAnimation{
+    self.layer.hidden = YES;
     [self.spinner stopAnimation:self.spinner];
 }
 

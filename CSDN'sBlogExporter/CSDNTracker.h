@@ -18,7 +18,8 @@ typedef void(^RequestBatchCompleteBlock)(NSError *error,id obj, BOOL batchIsComp
 
 @interface CSDNTracker : NSObject
 
-@property (nonatomic, copy) NSString *username;
++(void)setUsername:(NSString *)username;
++(NSString *)username;
 
 -(void)requestWithCompleteBlock:(RequestCompleteBlock)completeBlock;
 
