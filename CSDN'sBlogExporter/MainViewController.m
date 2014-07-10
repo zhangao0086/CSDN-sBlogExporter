@@ -11,9 +11,10 @@
 #import "CSDNAllArticleSummaryTracker.h"
 #import "CSDNArticleTracker.h"
 #import "CSDNLoginTracker.h"
+#import "CSDNArticle.h"
 #import "SpinnerView.h"
 
-@interface MainViewController ()
+@interface MainViewController () <NSUserNotificationCenterDelegate>
 
 @property (nonatomic, assign) IBOutlet NSTextView *descriptionTextView;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *indicator;
@@ -23,7 +24,6 @@
 @property (nonatomic, strong) IBOutlet NSWindow *loginSheets;
 @property (nonatomic, weak) IBOutlet NSTextField *username;
 @property (nonatomic, weak) IBOutlet NSTextField *password;
-@property (nonatomic, weak) IBOutlet NSTextField *tipsLabel;
 
 @property (nonatomic, strong) NSArray *articleSummarys;
 @property (nonatomic, strong) NSURL *exportDirectoryURL;
@@ -39,7 +39,7 @@
 
 -(NSWindow *)loginSheets{
     if (_loginSheets == nil) {
-        [NSBundle loadNibNamed:@"LoginSheets" owner:self];
+        [[NSBundle mainBundle] loadNibNamed:@"LoginSheets" owner:self topLevelObjects:NULL];
     }
     return _loginSheets;
 }
@@ -53,7 +53,7 @@
     return _spinnerView;
 }
 
--(IBAction)categoriesButtonClicked:(NSButton *)sender{
+-(IBAction)exportButtonClicked:(id)sender{
     NSOpenPanel *openDlg = [NSOpenPanel openPanel];
     [openDlg setCanChooseDirectories:YES];
     [openDlg setAllowsMultipleSelection:NO];
@@ -63,6 +63,11 @@
         self.exportDirectoryURL = [openDlg URL];
         [self startExporting];
     }
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+    return YES;
 }
 
 -(IBAction)showSheet:(id)sender{
@@ -83,13 +88,22 @@
     [sheet orderOut:self];
 }
 
+-(void)showTipsTitle:(NSString *)title content:(NSString *)content{
+    NSUserNotification *noti = [NSUserNotification new];
+    noti.title = title;
+    noti.informativeText = content;
+    NSUserNotificationCenter *uc = [NSUserNotificationCenter defaultUserNotificationCenter];
+    uc.delegate = self;
+    [uc deliverNotification:noti];
+}
+
 -(IBAction)login:(id)sender{
     if ([self.username.stringValue isEqualToString:@""]) {
-        self.tipsLabel.stringValue = @"用户名不能为空";
+        [self showTipsTitle:@"提示" content:@"用户名不能为空"];
         return;
     }
     if ([self.password.stringValue isEqualToString:@""]) {
-        self.tipsLabel.stringValue = @"密码不能为空";
+        [self showTipsTitle:@"提示" content:@"密码不能为空"];
         return;
     }
     [self.loginSheets.contentView addSubview:self.spinnerView];
@@ -107,27 +121,20 @@
             [self.exportButton setEnabled:YES];
             self.password.stringValue = @"";
             [self.loginButton setTitle:self.username.stringValue];
-            [self resizeLoginButton];
+            [self.loginButton sizeToFit];
             [CSDNTracker setUsername:self.username.stringValue];
         } else {
-            self.tipsLabel.stringValue = MessageInError(error);
+            [self showTipsTitle:@"提示" content:MessageInError(error)];
         }
     }];
 }
 
 #pragma mark - methods
--(void)resizeLoginButton{
-    CGSize size =  [self.loginButton.title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, self.loginButton.frame.size.height)
-                                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                                     attributes:@{
-                                                                  NSFontAttributeName: self.loginButton.font
-                                                                  }].size;
-    self.loginButton.frame = CGRectMake(self.loginButton.frame.origin.x,
-                                        self.loginButton.frame.origin.y,
-                                        size.width, self.loginButton.frame.size.height);
-}
-
 -(void)startExporting{
+    if (self.loginButton.isEnabled) {
+        [self showTipsTitle:@"提示" content:@"请先登录"];
+        return;
+    }
     [self addMessageLog:@"开始导出...\n正在访问指定的博客..."];
     [self.indicator startAnimation:nil];
     CSDNAllArticleSummaryTracker *tracker = [CSDNAllArticleSummaryTracker new];
@@ -143,7 +150,7 @@
             [self addMessageLog:@"共%d篇文章",articleSummarys.count];
             [self addMessageLog:@"开始导出每一篇文章..."];
             CSDNArticleTracker *articleTracker = [[CSDNArticleTracker alloc] initWithSummarys:self.articleSummarys];
-            [articleTracker requestBatchWithCompleteBlock:^(NSError *error, id obj, BOOL batchIsCompleted) {
+            [articleTracker requestBatchWithCompleteBlock:^(NSError *error, CSDNArticle *article, BOOL batchIsCompleted) {
                 if (error == nil) {
                     if (batchIsCompleted) {
                         

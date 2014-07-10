@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DB433C84-7500-4135-BDEB-A78289B4E17E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CSDN'sBlogExporter</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1296BF56-280D-41E8-9037-7D485117C777</key>
+		<string>ssh://github.com/zhangao0086/CSDN-sBlogExporter.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CSDN'sBlogExporter.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1296BF56-280D-41E8-9037-7D485117C777</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/zhangao0086/CSDN-sBlogExporter.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1296BF56-280D-41E8-9037-7D485117C777</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1296BF56-280D-41E8-9037-7D485117C777</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CSDN'sBlog</string>
+		</dict>
+	</array>
+</dict>
+</plist>
