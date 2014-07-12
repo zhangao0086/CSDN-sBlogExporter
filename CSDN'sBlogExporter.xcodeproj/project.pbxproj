@@ -36,15 +36,11 @@
 		18199650196BCBFF006D031A /* CSDNCategorySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819964F196BCBFF006D031A /* CSDNCategorySerializer.m */; };
 		18199658196BCE27006D031A /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 18199657196BCE27006D031A /* RegExCategories.m */; };
 		1819965C196BD4B0006D031A /* CSDNCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819965B196BD4B0006D031A /* CSDNCategory.m */; };
-		18199660196BE6EF006D031A /* CSDNArticleTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819965F196BE6EF006D031A /* CSDNArticleTracker.m */; };
-		18199664196BE7D8006D031A /* CSDNAllArticleSummaryTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 18199663196BE7D8006D031A /* CSDNAllArticleSummaryTracker.m */; };
-		18199667196BE805006D031A /* CSDNArticleSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 18199666196BE805006D031A /* CSDNArticleSummary.m */; };
 		1819966A196BE911006D031A /* CSDNAllArticleSummarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18199669196BE911006D031A /* CSDNAllArticleSummarySerializer.m */; };
 		18199670196BF9BE006D031A /* CSDNArticleSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819966F196BF9BE006D031A /* CSDNArticleSerializer.m */; };
 		1893BDE1196CDA3000B0D1CA /* CSDNArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893BDE0196CDA3000B0D1CA /* CSDNArticle.m */; };
 		1893BDE3196CE84400B0D1CA /* LoginSheets.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1893BDE2196CE84400B0D1CA /* LoginSheets.xib */; };
 		1893BDED196CF89F00B0D1CA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893BDEB196CF6A600B0D1CA /* MainViewController.m */; };
-		1893BDF1196D009600B0D1CA /* CSDNLoginTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893BDF0196D009600B0D1CA /* CSDNLoginTracker.m */; };
 		1893BDF4196D06A600B0D1CA /* CSDNLoginSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893BDF3196D06A600B0D1CA /* CSDNLoginSerializer.m */; };
 		1893BDF7196D4F3800B0D1CA /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893BDF6196D4F3800B0D1CA /* SpinnerView.m */; };
 /* End PBXBuildFile section */
@@ -110,12 +106,6 @@
 		18199657196BCE27006D031A /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegExCategories.m; sourceTree = "<group>"; };
 		1819965A196BD4B0006D031A /* CSDNCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDNCategory.h; sourceTree = "<group>"; };
 		1819965B196BD4B0006D031A /* CSDNCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDNCategory.m; sourceTree = "<group>"; };
-		1819965E196BE6EF006D031A /* CSDNArticleTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDNArticleTracker.h; sourceTree = "<group>"; };
-		1819965F196BE6EF006D031A /* CSDNArticleTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDNArticleTracker.m; sourceTree = "<group>"; };
-		18199662196BE7D8006D031A /* CSDNAllArticleSummaryTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDNAllArticleSummaryTracker.h; sourceTree = "<group>"; };
-		18199663196BE7D8006D031A /* CSDNAllArticleSummaryTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDNAllArticleSummaryTracker.m; sourceTree = "<group>"; };
-		18199665196BE805006D031A /* CSDNArticleSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDNArticleSummary.h; sourceTree = "<group>"; };
-		18199666196BE805006D031A /* CSDNArticleSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDNArticleSummary.m; sourceTree = "<group>"; };
 		18199668196BE911006D031A /* CSDNAllArticleSummarySerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDNAllArticleSummarySerializer.h; sourceTree = "<group>"; };
 		18199669196BE911006D031A /* CSDNAllArticleSummarySerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDNAllArticleSummarySerializer.m; sourceTree = "<group>"; };
 		1819966E196BF9BE006D031A /* CSDNArticleSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDNArticleSerializer.h; sourceTree = "<group>"; };
@@ -125,8 +115,6 @@
 		1893BDE2196CE84400B0D1CA /* LoginSheets.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginSheets.xib; sourceTree = "<group>"; };
 		1893BDEA196CF6A600B0D1CA /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		1893BDEB196CF6A600B0D1CA /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		1893BDEF196D009600B0D1CA /* CSDNLoginTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDNLoginTracker.h; sourceTree = "<group>"; };
-		1893BDF0196D009600B0D1CA /* CSDNLoginTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDNLoginTracker.m; sourceTree = "<group>"; };
 		1893BDF2196D06A600B0D1CA /* CSDNLoginSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDNLoginSerializer.h; sourceTree = "<group>"; };
 		1893BDF3196D06A600B0D1CA /* CSDNLoginSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDNLoginSerializer.m; sourceTree = "<group>"; };
 		1893BDF5196D4F3800B0D1CA /* SpinnerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpinnerView.h; sourceTree = "<group>"; };
@@ -322,8 +310,6 @@
 			children = (
 				1819965A196BD4B0006D031A /* CSDNCategory.h */,
 				1819965B196BD4B0006D031A /* CSDNCategory.m */,
-				18199665196BE805006D031A /* CSDNArticleSummary.h */,
-				18199666196BE805006D031A /* CSDNArticleSummary.m */,
 				1893BDDF196CDA3000B0D1CA /* CSDNArticle.h */,
 				1893BDE0196CDA3000B0D1CA /* CSDNArticle.m */,
 			);
@@ -333,8 +319,6 @@
 		1819965D196BE607006D031A /* Article */ = {
 			isa = PBXGroup;
 			children = (
-				1819965E196BE6EF006D031A /* CSDNArticleTracker.h */,
-				1819965F196BE6EF006D031A /* CSDNArticleTracker.m */,
 				1819966E196BF9BE006D031A /* CSDNArticleSerializer.h */,
 				1819966F196BF9BE006D031A /* CSDNArticleSerializer.m */,
 			);
@@ -344,8 +328,6 @@
 		18199661196BE7BE006D031A /* AllArticleSummary */ = {
 			isa = PBXGroup;
 			children = (
-				18199662196BE7D8006D031A /* CSDNAllArticleSummaryTracker.h */,
-				18199663196BE7D8006D031A /* CSDNAllArticleSummaryTracker.m */,
 				18199668196BE911006D031A /* CSDNAllArticleSummarySerializer.h */,
 				18199669196BE911006D031A /* CSDNAllArticleSummarySerializer.m */,
 			);
@@ -355,8 +337,6 @@
 		1893BDEE196D008600B0D1CA /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				1893BDEF196D009600B0D1CA /* CSDNLoginTracker.h */,
-				1893BDF0196D009600B0D1CA /* CSDNLoginTracker.m */,
 				1893BDF2196D06A600B0D1CA /* CSDNLoginSerializer.h */,
 				1893BDF3196D06A600B0D1CA /* CSDNLoginSerializer.m */,
 			);
@@ -463,13 +443,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				181995ED196BB23C006D031A /* CSDNTracker.m in Sources */,
-				18199667196BE805006D031A /* CSDNArticleSummary.m in Sources */,
-				1893BDF1196D009600B0D1CA /* CSDNLoginTracker.m in Sources */,
 				18199650196BCBFF006D031A /* CSDNCategorySerializer.m in Sources */,
 				1893BDED196CF89F00B0D1CA /* MainViewController.m in Sources */,
 				1893BDE1196CDA3000B0D1CA /* CSDNArticle.m in Sources */,
 				181995E2196BAF7F006D031A /* AFHTTPRequestOperation.m in Sources */,
-				18199660196BE6EF006D031A /* CSDNArticleTracker.m in Sources */,
 				181995AB196B9BB6006D031A /* AppDelegate.m in Sources */,
 				181995E3196BAF7F006D031A /* AFHTTPRequestOperationManager.m in Sources */,
 				181995E5196BAF7F006D031A /* AFNetworkReachabilityManager.m in Sources */,
@@ -481,7 +458,6 @@
 				1893BDF4196D06A600B0D1CA /* CSDNLoginSerializer.m in Sources */,
 				18199670196BF9BE006D031A /* CSDNArticleSerializer.m in Sources */,
 				181995E4196BAF7F006D031A /* AFHTTPSessionManager.m in Sources */,
-				18199664196BE7D8006D031A /* CSDNAllArticleSummaryTracker.m in Sources */,
 				181995E8196BAF7F006D031A /* AFURLRequestSerialization.m in Sources */,
 				181995F2196BB432006D031A /* CSDNCategoriesTracker.m in Sources */,
 				181995EA196BAF7F006D031A /* AFURLSessionManager.m in Sources */,

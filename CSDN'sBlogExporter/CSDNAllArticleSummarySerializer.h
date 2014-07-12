@@ -6,8 +6,10 @@
 //  Copyright (c) 2014年 ZA. All rights reserved.
 //
 
-#import "AFURLResponseSerialization.h"
+#import "CSDNTracker.h"
 
-@interface CSDNAllArticleSummarySerializer : AFHTTPResponseSerializer
+@interface CSDNAllArticleSummarySerializer : CSDNBaseSerializer
+
+@property (nonatomic, copy) NSString *username;
 
 @end

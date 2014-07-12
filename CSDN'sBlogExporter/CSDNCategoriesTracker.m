@@ -11,17 +11,13 @@
 
 @implementation CSDNCategoriesTracker
 
--(void)requestWithCompleteBlock:(RequestCompleteBlock)completeBlock{
-    [super requestWithCompleteBlock:completeBlock];
-}
-
 -(AFHTTPResponseSerializer *)responseSerializer{
     return [CSDNCategorySerializer serializer];
 }
 
--(NSString *)requestURLString{
-    assert([CSDNTracker username]);
-    return [NSString stringWithFormat:@"http://blog.csdn.net/%@",[CSDNTracker username]];
-}
+//-(NSString *)requestURLString{
+//    assert([CSDNTracker username]);
+//    return [NSString stringWithFormat:@"http://blog.csdn.net/%@",[CSDNTracker username]];
+//}
 
 @end

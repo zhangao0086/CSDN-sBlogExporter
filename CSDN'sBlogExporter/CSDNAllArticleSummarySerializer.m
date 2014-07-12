@@ -7,26 +7,47 @@
 //
 
 #import "CSDNAllArticleSummarySerializer.h"
-#import "CSDNArticleSummary.h"
+#import "CSDNArticle.h"
 
-@implementation CSDNAllArticleSummarySerializer
+@interface CSDNSummariesResponseSerializer : AFHTTPResponseSerializer
+
+@end
+
+@implementation CSDNSummariesResponseSerializer
 
 -(id)responseObjectForResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError *__autoreleasing *)error{
     NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-    NSRegularExpression *pattern = [NSRegularExpression rx:@"<span class=\"link_title\"><a href=\"(.*?)\">(.*?)</a></span>"
-                                                   options:NSRegularExpressionDotMatchesLineSeparators];
+    NSRegularExpression *pattern = [NSRegularExpression
+                                    rx:@"list_view.*?link_title.*?href=\"(.*?)\">(.*?)</a>.*?link_postdate\">(.*?)</span>"
+                                    options:NSRegularExpressionDotMatchesLineSeparators];
     NSArray *details = [htmlString matchesWithDetails:pattern];
     
-    NSMutableArray *summarys = [NSMutableArray arrayWithCapacity:details.count];
+    NSMutableArray *articles = [NSMutableArray arrayWithCapacity:details.count];
     for (RxMatch *match in details) {
-        CSDNArticleSummary *summary = [CSDNArticleSummary new];
+        CSDNArticle *article = [CSDNArticle new];
         NSString *articleUrl = [match.groups[1] value];
-        summary.articleId = [articleUrl componentsSeparatedByString:@"/"].lastObject;
-        summary.articleTitle = [[match.groups[2] value] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        [summarys addObject:summary];
+        article.articleId = [articleUrl componentsSeparatedByString:@"/"].lastObject;
+        article.articleTitle = [[match.groups[2] value] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        article.publishTime = [match.groups[3] value];
+        [articles addObject:article];
     }
-    return summarys;
+    return articles;
+}
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+@implementation CSDNAllArticleSummarySerializer
+
+
+-(AFHTTPResponseSerializer *)responseSerializer{
+    return [CSDNSummariesResponseSerializer serializer];
+}
+
+-(NSString *)requestURLString{
+    return [NSString stringWithFormat:@"http://blog.csdn.net/%@/article/list/9999?viewmode=contents",self.username];
 }
 
 @end

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -19,6 +19,7 @@
                 <outlet property="indicator" destination="Pcm-sO-GoE" id="3Eh-ut-GQn"/>
                 <outlet property="loginButton" destination="J10-TZ-grF" id="rNH-ZX-ys5"/>
                 <outlet property="mainWindow" destination="371" id="LsI-Pu-ER1"/>
+                <outlet property="yamlButton" destination="bKv-de-TaD" id="sZa-ny-APs"/>
             </connections>
         </customObject>
         <menu title="AMainMenu" systemMenu="main" id="29">
@@ -659,14 +660,14 @@
         <window title="CSDN'sBlogExporter" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="383" width="480" height="290"/>
+            <rect key="contentRect" x="335" y="383" width="671" height="380"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="290"/>
+                <rect key="frame" x="0.0" y="0.0" width="671" height="380"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" id="J10-TZ-grF">
-                        <rect key="frame" x="14" y="242" width="105" height="32"/>
+                        <rect key="frame" x="14" y="332" width="105" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="请先登录" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Vf1-w5-bbu">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -677,40 +678,40 @@
                         </connections>
                     </button>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="mNg-cE-skL">
-                        <rect key="frame" x="20" y="20" width="440" height="170"/>
+                        <rect key="frame" x="20" y="20" width="631" height="260"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" id="DOh-t0-ShP">
-                            <rect key="frame" x="1" y="1" width="423" height="168"/>
+                            <rect key="frame" x="1" y="1" width="614" height="258"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="kSi-gZ-0rh">
-                                    <rect key="frame" x="0.0" y="0.0" width="423" height="168"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="614" height="258"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="423" height="168"/>
-                                    <size key="maxSize" width="463" height="10000000"/>
+                                    <size key="minSize" width="614" height="258"/>
+                                    <size key="maxSize" width="631" height="10000000"/>
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="423" height="168"/>
-                                    <size key="maxSize" width="463" height="10000000"/>
+                                    <size key="minSize" width="614" height="258"/>
+                                    <size key="maxSize" width="631" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="tHA-JG-4ld">
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" id="tHA-JG-4ld">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="2oF-C9-4Oe">
-                            <rect key="frame" x="424" y="1" width="15" height="168"/>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" id="2oF-C9-4Oe">
+                            <rect key="frame" x="615" y="1" width="15" height="258"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                     <progressIndicator maxValue="100" indeterminate="YES" style="bar" id="Pcm-sO-GoE">
-                        <rect key="frame" x="20" y="199" width="440" height="22"/>
+                        <rect key="frame" x="20" y="289" width="631" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </progressIndicator>
                     <button verticalHuggingPriority="750" id="UF1-Ib-gqR">
-                        <rect key="frame" x="247" y="242" width="82" height="32"/>
+                        <rect key="frame" x="263" y="332" width="113" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="导出..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GzZ-Pq-M0H">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -718,6 +719,14 @@
                             <connections>
                                 <action selector="exportButtonClicked:" target="xIP-u9-ETc" id="atI-f5-Waj"/>
                             </connections>
+                        </buttonCell>
+                    </button>
+                    <button id="bKv-de-TaD">
+                        <rect key="frame" x="447" y="340" width="122" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="添加YAML头信息" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="9V5-Fc-aq2">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
                 </subviews>

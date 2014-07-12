@@ -7,31 +7,41 @@
 //
 
 #import "MainViewController.h"
-#import "CSDNArticleSummary.h"
-#import "CSDNAllArticleSummaryTracker.h"
-#import "CSDNArticleTracker.h"
-#import "CSDNLoginTracker.h"
 #import "CSDNArticle.h"
 #import "SpinnerView.h"
 
-@interface MainViewController () <NSUserNotificationCenterDelegate>
+#import "CSDNTracker.h"
+
+@interface MainViewController () <NSUserNotificationCenterDelegate,CSDNTrackerDelegate>
 
 @property (nonatomic, assign) IBOutlet NSTextView *descriptionTextView;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *indicator;
 @property (nonatomic, weak) IBOutlet NSButton *loginButton;
 @property (nonatomic, weak) IBOutlet NSButton *exportButton;
+@property (nonatomic, weak) IBOutlet NSButton *yamlButton;
 
 @property (nonatomic, strong) IBOutlet NSWindow *loginSheets;
 @property (nonatomic, weak) IBOutlet NSTextField *username;
 @property (nonatomic, weak) IBOutlet NSTextField *password;
 
-@property (nonatomic, strong) NSArray *articleSummarys;
-@property (nonatomic, strong) NSURL *exportDirectoryURL;
+@property (nonatomic, copy) NSString *exportDirectoryUrl;
 @property (nonatomic, strong) SpinnerView *spinnerView;
+
+@property (nonatomic, strong) CSDNTracker *tracker;
+@property (nonatomic, copy) NSArray *articlesSummary;
 
 @end
 
 @implementation MainViewController
+
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        self.tracker = [CSDNTracker new];
+        self.tracker.delegate = self;
+    }
+    return self;
+}
 
 - (void)awakeFromNib{
     [super awakeFromNib];
@@ -57,10 +67,11 @@
     NSOpenPanel *openDlg = [NSOpenPanel openPanel];
     [openDlg setCanChooseDirectories:YES];
     [openDlg setAllowsMultipleSelection:NO];
+    [openDlg setCanCreateDirectories:YES];
     
     if ([openDlg runModal] == NSOKButton) {
         [sender setEnabled:NO];
-        self.exportDirectoryURL = [openDlg URL];
+        self.exportDirectoryUrl = [[openDlg URL] relativePath];
         [self startExporting];
     }
 }
@@ -110,23 +121,7 @@
     [self.spinnerView startAnimation];
     [self.loginSheets makeFirstResponder:nil];
     
-    CSDNLoginTracker *loginTracker = [[CSDNLoginTracker alloc] init];
-    loginTracker.username = self.username.stringValue;
-    loginTracker.password = self.password.stringValue;
-    [loginTracker requestWithCompleteBlock:^(NSError *error, id obj) {
-        [self.spinnerView stopAnimation];
-        if (error == nil) {
-            [self cancelSheet:nil];
-            [self.loginButton setEnabled:NO];
-            [self.exportButton setEnabled:YES];
-            self.password.stringValue = @"";
-            [self.loginButton setTitle:self.username.stringValue];
-            [self.loginButton sizeToFit];
-            [CSDNTracker setUsername:self.username.stringValue];
-        } else {
-            [self showTipsTitle:@"提示" content:MessageInError(error)];
-        }
-    }];
+    [self.tracker loginWithUsername:self.username.stringValue password:self.password.stringValue];
 }
 
 #pragma mark - methods
@@ -137,30 +132,9 @@
     }
     [self addMessageLog:@"开始导出...\n正在访问指定的博客..."];
     [self.indicator startAnimation:nil];
-    CSDNAllArticleSummaryTracker *tracker = [CSDNAllArticleSummaryTracker new];
-    [tracker requestWithCompleteBlock:^(NSError *error, NSArray *articleSummarys) {
-        if (error == nil) {
-            self.articleSummarys = articleSummarys;
-            [self.indicator setDoubleValue:10.0];
-            [self.indicator setIndeterminate:NO];
-            [self addMessageLog:@"已获取到所有文章的摘要信息"];
-            for (CSDNArticleSummary *summary in articleSummarys) {
-                [self addMessageLog:@"----%@",summary.articleTitle];
-            }
-            [self addMessageLog:@"共%d篇文章",articleSummarys.count];
-            [self addMessageLog:@"开始导出每一篇文章..."];
-            CSDNArticleTracker *articleTracker = [[CSDNArticleTracker alloc] initWithSummarys:self.articleSummarys];
-            [articleTracker requestBatchWithCompleteBlock:^(NSError *error, CSDNArticle *article, BOOL batchIsCompleted) {
-                if (error == nil) {
-                    if (batchIsCompleted) {
-                        
-                    } else {
-                        [self addMessageLog:@""];
-                    }
-                }
-            }];
-        }
-    }];
+    
+    [self.tracker requestAllArticlesSummary];
+
 }
 
 -(void)addMessageLog:(NSString *)message, ...{
@@ -179,6 +153,91 @@
     }
     self.descriptionTextView.string = newStr;
     [self.descriptionTextView scrollRangeToVisible:NSMakeRange(self.descriptionTextView.string.length, 0)];
+}
+
+-(void)insertYAMLHeaderForArticle:(CSDNArticle *)article fileContent:(NSMutableString *)fileContent{
+    [fileContent appendString:@"---\n"];
+    [fileContent appendString:@"layout: contentpage\n"];
+    [fileContent appendFormat:@"title: %@\n",article.articleTitle];
+    if (article.categories != nil) {
+        [fileContent appendFormat:@"categories: [%@]\n",article.categories];
+    }
+    if (article.tags != nil) {
+        [fileContent appendFormat:@"tags: [%@]\n",article.tags];
+    }
+    [fileContent appendFormat:@"date: %@:%02d\n",article.publishTime,rand() % 60];
+    [fileContent appendString:@"---\n"];
+    [fileContent appendString:@"\n"];
+}
+
+-(void)saveArticle:(CSDNArticle *)article{
+    [self addMessageLog:@"----正在导出《%@》----已导出",article.articleTitle];
+    assert(article.rawContent);
+    
+    NSMutableString *fileContent = [NSMutableString string];
+    
+    if (self.yamlButton.state == NSOnState) {
+        [self insertYAMLHeaderForArticle:article fileContent:fileContent];
+    }
+    
+    [fileContent appendString:article.rawContent];
+    
+    NSError *error;
+    
+    NSString *fileNamePrefix = [[article.publishTime componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] objectAtIndex:0];
+    NSString *fileName = [article.articleTitle stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+    NSString *fullFileName = [NSString stringWithFormat:@"%@-%@.html",fileNamePrefix,fileName];
+    NSString *filePath = [self.exportDirectoryUrl stringByAppendingPathComponent:fullFileName];
+    
+    BOOL success = [fileContent writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    if (!success) {
+        NSLog(@"%@",error.localizedDescription);
+    }
+    [self addMessageLog:@"----已导出《%@》至《%@》",article.articleTitle,fullFileName];
+}
+
+#pragma mark - CSDNTrackerDelegate methods
+-(void)loginSuccessful{
+    [self.spinnerView stopAnimation];
+    [self cancelSheet:nil];
+    [self.loginButton setEnabled:NO];
+    [self.exportButton setEnabled:YES];
+    [self.yamlButton setEnabled:YES];
+    self.password.stringValue = @"";
+    [self.loginButton setTitle:self.username.stringValue];
+    [self.loginButton sizeToFit];
+}
+
+-(void)onGetAllArticlesSummarySuccessful:(NSArray *)articlesSummary{
+    [self.indicator setDoubleValue:10.0];
+    [self.indicator setIndeterminate:NO];
+    [self addMessageLog:@"已获取到所有文章的摘要信息"];
+    self.articlesSummary = articlesSummary;
+    for (CSDNArticle *summary in articlesSummary) {
+        [self addMessageLog:@"----%@",summary.articleTitle];
+    }
+    [self addMessageLog:@"共%d篇文章",articlesSummary.count];
+    [self addMessageLog:@"开始导出每一篇文章..."];
+    
+    [self.tracker requestAllArticlesWithSummaries:articlesSummary];
+}
+
+static int i = 0;
+-(void)requestArticleSuccessful:(CSDNArticle *)article batchIsCompleted:(BOOL)batchIsCompleted{
+    if (batchIsCompleted) {
+        [self.indicator setDoubleValue:100.0];
+        [self addMessageLog:@"导出完成..."];
+        [self addMessageLog:@"已成功导出%d篇",i];
+    } else {
+        i++;
+        [self.indicator incrementBy:90.0 / self.articlesSummary.count];
+        [self saveArticle:article];
+    }
+}
+
+-(void)requestFailed:(NSError *)error{
+    [self.spinnerView stopAnimation];
+    [self showTipsTitle:@"提示" content:MessageInError(error)];
 }
 
 @end

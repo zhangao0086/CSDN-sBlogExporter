@@ -11,24 +11,43 @@
 
 #define MessageInError(error)   ([error.userInfo objectForKey:@"errorMessage"])
 
-typedef void(^RequestCompleteBlock)(NSError *error,id obj);
-typedef void(^RequestBatchCompleteBlock)(NSError *error,id obj, BOOL batchIsCompleted);
+@protocol CSDNTrackerDelegate <NSObject>
+//登录成功
+-(void)loginSuccessful;
+
+//获取文章摘要成功
+-(void)onGetAllArticlesSummarySuccessful:(NSArray *)articlesSummary;
+
+//获取每一篇文章
+-(void)requestArticleSuccessful:(id)object batchIsCompleted:(BOOL)batchIsCompleted;
+
+-(void)requestFailed:(NSError *)error;
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////
+
+@interface CSDNBaseSerializer : NSObject
+
+-(AFHTTPResponseSerializer *)responseSerializer;
+
+-(NSDictionary *)postParams;  //send request as GET if return nil;defaults to nil.
+
+-(NSString *)requestURLString;
+-(NSArray *)requestURLStrings;
+
+@end
 
 ////////////////////////////////////////////////////////////////////////////////
 
 @interface CSDNTracker : NSObject
 
-+(void)setUsername:(NSString *)username;
-+(NSString *)username;
+@property (nonatomic, assign) id<CSDNTrackerDelegate> delegate;
 
--(void)requestWithCompleteBlock:(RequestCompleteBlock)completeBlock;
+-(void)loginWithUsername:(NSString *)username password:(NSString *)password;
 
--(void)requestBatchWithCompleteBlock:(RequestBatchCompleteBlock)completeBlock;
+-(void)requestAllArticlesSummary;
 
-//Subclass
--(NSDictionary *)postParams;  //send request as GET if return nil;defaults to nil.
--(AFHTTPResponseSerializer *)responseSerializer;
--(NSString *)requestURLString;
--(NSArray *)requestBatchURLString;
+-(void)requestAllArticlesWithSummaries:(NSArray *)summary;
 
 @end

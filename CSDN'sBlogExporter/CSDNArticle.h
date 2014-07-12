@@ -10,19 +10,20 @@
 
 typedef enum {
     ArticleSourceTypeOriginal = 1,
-    ArticleSourceTypeReprint,
-    ArticleSourceTypeTranslate
+    ArticleSourceTypeReprint = 2,
+    ArticleSourceTypeTranslate = 4
 }ArticleSourceType;
 
 ////////////////////////////////////////////////////////////
 
 @interface CSDNArticle : NSObject
 
+@property (nonatomic, copy) NSString *articleId;
 @property (nonatomic, copy) NSString *articleTitle;
 @property (nonatomic, copy) NSString *rawContent;
 @property (nonatomic, copy) NSString *publishTime;
-@property (nonatomic, copy) NSArray *categories;
-@property (nonatomic, copy) NSArray *tags;
+@property (nonatomic, copy) NSString *categories;
+@property (nonatomic, copy) NSString *tags;
 @property (nonatomic, assign) ArticleSourceType sourceType;
 
 @end
