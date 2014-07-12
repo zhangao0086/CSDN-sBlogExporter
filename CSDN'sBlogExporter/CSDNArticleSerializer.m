@@ -8,6 +8,7 @@
 
 #import "CSDNArticleSerializer.h"
 #import "CSDNArticle.h"
+#import "NSString+HTML.h"
 
 @interface CSDNArticleResponseSerializer : AFHTTPResponseSerializer
 @property (nonatomic, copy) NSArray *summaries;
@@ -20,7 +21,8 @@
 
 -(NSString *)rawContentByHtmlString:(NSString *)htmlString{
     RxMatch *match = [htmlString firstMatchWithDetails:RxForDotMatches(@"<textarea.*?>(.*?)</textarea>")];
-    return [match.groups[1] value];
+    NSString *rawDecodedContent = [match.groups[1] value];
+    return [rawDecodedContent stringByDecodingHTMLEntities];
 }
 
 -(NSString *)tagsByHtmlString:(NSString *)htmlString{

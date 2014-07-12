@@ -193,7 +193,7 @@
     if (!success) {
         NSLog(@"%@",error.localizedDescription);
     }
-    [self addMessageLog:@"----已导出《%@》至《%@》",article.articleTitle,fullFileName];
+    [self addMessageLog:@"----已导出至《%@》",fullFileName];
 }
 
 #pragma mark - CSDNTrackerDelegate methods

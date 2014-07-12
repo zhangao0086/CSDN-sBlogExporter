@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18006CF31970D14900C848CD /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 18006CF01970D14900C848CD /* GTMNSString+HTML.m */; };
+		18006CF41970D14900C848CD /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 18006CF21970D14900C848CD /* NSString+HTML.m */; };
 		18199598196B9BB6006D031A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18199597196B9BB6006D031A /* Cocoa.framework */; };
 		181995A2196B9BB6006D031A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 181995A0196B9BB6006D031A /* InfoPlist.strings */; };
 		181995A4196B9BB6006D031A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 181995A3196B9BB6006D031A /* main.m */; };
@@ -56,6 +58,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18006CEF1970D14900C848CD /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		18006CF01970D14900C848CD /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		18006CF11970D14900C848CD /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		18006CF21970D14900C848CD /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		18199594196B9BB6006D031A /* CSDN'sBlogExporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CSDN'sBlogExporter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18199597196B9BB6006D031A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		1819959A196B9BB6006D031A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -146,6 +152,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18006CEE1970D14900C848CD /* GTM */ = {
+			isa = PBXGroup;
+			children = (
+				18006CEF1970D14900C848CD /* GTMNSString+HTML.h */,
+				18006CF01970D14900C848CD /* GTMNSString+HTML.m */,
+				18006CF11970D14900C848CD /* NSString+HTML.h */,
+				18006CF21970D14900C848CD /* NSString+HTML.m */,
+			);
+			path = GTM;
+			sourceTree = "<group>";
+		};
 		1819958B196B9BB6006D031A = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +207,7 @@
 		1819959D196B9BB6006D031A /* CSDN'sBlogExporter */ = {
 			isa = PBXGroup;
 			children = (
+				18006CEE1970D14900C848CD /* GTM */,
 				18199655196BCE27006D031A /* RegExCategories */,
 				181995EF196BB335006D031A /* Http */,
 				18199659196BD495006D031A /* Model */,
@@ -452,6 +470,7 @@
 				181995E5196BAF7F006D031A /* AFNetworkReachabilityManager.m in Sources */,
 				181995E9196BAF7F006D031A /* AFURLResponseSerialization.m in Sources */,
 				1893BDF7196D4F3800B0D1CA /* SpinnerView.m in Sources */,
+				18006CF41970D14900C848CD /* NSString+HTML.m in Sources */,
 				181995E7196BAF7F006D031A /* AFURLConnectionOperation.m in Sources */,
 				1819966A196BE911006D031A /* CSDNAllArticleSummarySerializer.m in Sources */,
 				181995E6196BAF7F006D031A /* AFSecurityPolicy.m in Sources */,
@@ -464,6 +483,7 @@
 				18199658196BCE27006D031A /* RegExCategories.m in Sources */,
 				181995A4196B9BB6006D031A /* main.m in Sources */,
 				1819965C196BD4B0006D031A /* CSDNCategory.m in Sources */,
+				18006CF31970D14900C848CD /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
