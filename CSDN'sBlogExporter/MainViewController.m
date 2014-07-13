@@ -66,6 +66,7 @@
 -(IBAction)exportButtonClicked:(id)sender{
     NSOpenPanel *openDlg = [NSOpenPanel openPanel];
     [openDlg setCanChooseDirectories:YES];
+    [openDlg setCanChooseFiles:NO];
     [openDlg setAllowsMultipleSelection:NO];
     [openDlg setCanCreateDirectories:YES];
     

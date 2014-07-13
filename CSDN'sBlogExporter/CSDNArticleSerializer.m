@@ -43,7 +43,7 @@
 -(id)responseObjectForResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError *__autoreleasing *)error{
     NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-    NSString *articleId = [response.URL.path componentsSeparatedByString:@"/"].lastObject;
+    NSString *articleId = [response.URL lastPathComponent];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articleId == %@",articleId];
     CSDNArticle *article = [self.summaries filteredArrayUsingPredicate:predicate].lastObject;
     
