@@ -167,6 +167,7 @@
         [fileContent appendFormat:@"tags: [%@]\n",article.tags];
     }
     [fileContent appendFormat:@"date: %@:%02d\n",article.publishTime,rand() % 60];
+    [fileContent appendFormat:@"sourceType: %d",article.sourceType];
     [fileContent appendString:@"---\n"];
     [fileContent appendString:@"\n"];
 }
